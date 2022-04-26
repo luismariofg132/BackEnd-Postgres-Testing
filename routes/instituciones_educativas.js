@@ -7,7 +7,7 @@ router.get('/instituciones-educativas', async (req, res) => {
   let cliente = await pool.connect()
   try {
     let result = await cliente.query(`SELECT * FROM instituciones_educativas`)
-    res.status(500).json(result.rows)
+    res.status(200).json(result.rows)
   } catch (err) {
     console.log({ err })
     res.status(200).json({ error: 'Internal error server' })
