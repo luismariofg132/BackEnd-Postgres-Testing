@@ -194,5 +194,20 @@ router.delete('/actor/:id', async (req, res) => {
   }
 })
 
+router.get('/actor/:id', async (req, res) => {
+  let cliente = await pool.connect()
+  const { id } = req.params
+  try {
+    let result = await cliente.query(
+      `SELECT * FROM actores WHERE id = ${id}`
+    )
+    res.json(result.rows)
+  } catch (err) {
+    console.log({ err })
+    res.status(500).json({ error: err })
+  } finally {
+    cliente.release(true)
+  }
+})
 
 module.exports = router
